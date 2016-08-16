@@ -61,3 +61,14 @@ These are the the options specific to ovsd that are given for ovs-lan:
 ovs-fake has some other options set:
 - **parent**: Name of another non-fake Open vSwitch bridge. Setting this makes the bridge a fake-bridge or pseudo-bridge created on top of the parent bridge. Note, that the parent bridge is called 'ovs-lan' despite the interface being called 'lan'. This is due to the bridge device prefix given in `/lib/netifd/ubusdev-config/ovsd.json`.
 - **vlan**: 802.1q VLAN tag for the fake-bridge. To create a fake bridge both the parent and VLAN options must be given.
+
+## Contact
+
+Please post to the Google group [ovsd-dev](https://groups.google.com/forum/#!forum/ovsd-dev) if you have problems with or suggestions for ovsd.
+
+## Acknowledgements
+
+This work was done as part of the 2016 Google Summer of Code. I would like to thank my advisor and mentor Julius Schulz-Zander for introducing me to GSoC and his counsel throughout the process.
+This project started as a student project at Technische Universität Berlin under his guidance and was finished during GSoC.
+A big thank you also to Felix Fietkau, author and maintainer of netifd, from whom I have learned a lot and who has given me feedback on my work. 
+Thanks to Freifunk, who hosted the project and, of course, to Google for organizing GSoC.
