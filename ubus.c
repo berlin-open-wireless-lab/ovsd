@@ -400,13 +400,13 @@ _handle_reload(struct ubus_context *ctx, struct ubus_object *obj,
 }
 
 enum {
-	DUMP_INFO_POLICY_BRIDGE,
+	DUMP_INFO_POLICY_NAME,
 	__DUMP_INFO_POLICY_MAX,
 };
 
 static struct blobmsg_policy dump_info_policy[__DUMP_INFO_POLICY_MAX] = {
-	[DUMP_INFO_POLICY_BRIDGE] = {
-		.name = "bridge",
+	[DUMP_INFO_POLICY_NAME] = {
+		.name = "name",
 		.type = BLOBMSG_TYPE_STRING,
 	},
 };
@@ -435,12 +435,12 @@ _handle_dump_stats(struct ubus_context *ctx, struct ubus_object *obj,
 }
 
 enum {
-	DELPOL_BRIDGE,
+	DELPOL_NAME,
 	__DELPOL_MAX
 };
 static const struct blobmsg_policy delete_policy[__DELPOL_MAX] = {
-	[DELPOL_BRIDGE] = {
-		.name = "bridge",
+	[DELPOL_NAME] = {
+		.name = "name",
 		.type = BLOBMSG_TYPE_STRING,
 	},
 };
@@ -455,32 +455,32 @@ _handle_free(struct ubus_context *ctx, struct ubus_object *obj,
 	blobmsg_parse(delete_policy, __DELPOL_MAX, tb, blobmsg_data(msg),
 		blobmsg_len(msg));
 
-	if (!tb[DELPOL_BRIDGE])
+	if (!tb[DELPOL_NAME])
 		return UBUS_STATUS_INVALID_ARGUMENT;
 
-	ret = ovs_delete(blobmsg_get_string(tb[DELPOL_BRIDGE]));
+	ret = ovs_delete(blobmsg_get_string(tb[DELPOL_NAME]));
 
 	if (ret)
 		goto error;
 
 	return _notify_netifd(NETIFD_NOTIFY_FREE,
-		blobmsg_get_string(tb[DELPOL_BRIDGE]), NULL);
+		blobmsg_get_string(tb[DELPOL_NAME]), NULL);
 
 error:
 	fprintf(stderr, "Failed to delete bridge '%s': %s\n",
-		blobmsg_get_string(tb[DELPOL_BRIDGE]), ovs_strerror(ret));
+		blobmsg_get_string(tb[DELPOL_NAME]), ovs_strerror(ret));
 
 	return _ovs_error_to_ubus_error(ret);
 }
 
 enum {
-	CHECK_STATE_POLICY_BRIDGE,
+	CHECK_STATE_POLICY_NAME,
 	__CHECK_STATE_POLICY_MAX
 };
 
 static struct blobmsg_policy check_state_policy[__CHECK_STATE_POLICY_MAX] = {
-	[CHECK_STATE_POLICY_BRIDGE] = {
-			.name = "bridge",
+	[CHECK_STATE_POLICY_NAME] = {
+			.name = "name",
 			.type = BLOBMSG_TYPE_STRING
 	},
 };
@@ -495,10 +495,10 @@ _handle_check_state(struct ubus_context *ctx, struct ubus_object *obj,
 	blobmsg_parse(check_state_policy, __CHECK_STATE_POLICY_MAX, tb,
 			blobmsg_data(msg), blobmsg_len(msg));
 
-	if (!tb[CHECK_STATE_POLICY_BRIDGE])
+	if (!tb[CHECK_STATE_POLICY_NAME])
 		return UBUS_STATUS_INVALID_ARGUMENT;
 
-	if (ovs_check_state(blobmsg_get_string(tb[CHECK_STATE_POLICY_BRIDGE])))
+	if (ovs_check_state(blobmsg_get_string(tb[CHECK_STATE_POLICY_NAME])))
 		return UBUS_STATUS_NOT_FOUND;
 
 	return 0;
