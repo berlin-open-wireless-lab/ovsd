@@ -178,12 +178,6 @@ static const struct blobmsg_policy create_policy[__CREATPOL_MAX] = {
 	},
 };
 
-static void
-_notify_complete_cb(struct ubus_notify_request *req, int idx, int ret)
-{
-	free(req);
-}
-
 enum netifd_notification_type {
 	NETIFD_NOTIFY_CREATE,
 	NETIFD_NOTIFY_RELOAD,
