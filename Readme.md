@@ -9,7 +9,7 @@ Using the netifd external device handler extension, it receives commands to crea
 
 Install this as a feed by adding the following line to `feeds.conf` in your OpenWRT/LEDE source tree:
 ```
-src-git ovs https://gitlab.inet.tu-berlin.de/SDWN/packages-ovs.git
+src-git ovs https://github.com/berlin-open-wireless-lab/packages-ovsd.git
 ```
 Next, run
 ```bash
